@@ -26,10 +26,3 @@ adjDigraph =
       [0, 0, 0, 1, 0, 0],
       [0, 0, 0, 0, 0, 1]
     ]
-
--- λ> propSymmetric adjGraph
--- True
--- λ> propSymmetric adjDigraph
--- False
-propSymmetric :: (Eq a, Prim a) => AdjacencyMatrixRep a -> Bool
-propSymmetric g = convert (transpose g) == g

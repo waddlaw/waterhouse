@@ -64,16 +64,6 @@ digraphToListRep g@(vs, es)
 adjSizeE :: AdjacencyListRep a -> Int
 adjSizeE = sum . map Set.size . Map.elems
 
--- λ> propGraphLength graph
--- True
-propGraphLength :: Graph -> Bool
-propGraphLength g = 2 * sizeE g == adjSizeE (graphToListRep g)
-
--- λ> propDiGraphLength digraph
--- True
-propDiGraphLength :: DiGraph -> Bool
-propDiGraphLength g = sizeE g == adjSizeE (digraphToListRep g)
-
 -- λ> existEdge adjGraph (1,2)
 -- True
 -- λ> existEdge adjGraph (1,3)
