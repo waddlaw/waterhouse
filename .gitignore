@@ -1,0 +1,5 @@
+.vscode
+dist-*
+images/
+.DS_Store
+Makefile

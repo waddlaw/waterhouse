@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "./test/"
+      component: "waterhouse:test"
+
+    - path: "./src"
+      component: "lib:waterhouse"

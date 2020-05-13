@@ -1,0 +1,44 @@
+name: format
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  format:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        cache-version: ["2020-05-13"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1.1.0
+      with:
+        ghc-version: "8.8.3"
+        cabal-version: "3.2.0.0"
+
+    - uses: actions/cache@v1
+      name: Cache ~/.cabal/store
+      with:
+        path: ~/.cabal/store
+        key: ${{ runner.os }}-${{ matrix.cache-version }}-cabal
+
+    - name: Install cabal-fmt, ormolu
+      run: |
+        cabal update
+        cabal install cabal-fmt ormolu --overwrite-policy=always --install-method=copy -j2 -z
+
+    - name: Apply cabal-fmt
+      run: |
+        export PATH=~/.cabal/bin/:$PATH
+        cabal-fmt -i *.cabal
+        git --no-pager diff --exit-code
+
+    - name: Apply ormolu
+      run: |
+        export PATH=~/.cabal/bin/:$PATH
+        ormolu --mode inplace $(find src test -type f -name "*.hs")
+        git --no-pager diff --exit-code

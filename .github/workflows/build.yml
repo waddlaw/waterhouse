@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+        ghc: ["8.10.1", "8.8.3", "8.6.5"]
+        cabal: ["3.2.0.0"]
+        cache-version: ["2020-05-13"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1.1.0
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: ${{ matrix.cabal }}
+
+    - name: Cache cabal
+      uses: actions/cache@v1
+      with:
+        path: ~/.cabal/store
+        key: ${{ runner.os }}-${{ matrix.ghc }}-${{ matrix.cache-version }}-cabal
+
+    - name: Install dependencies
+      run: |
+        cabal update
+        cabal configure --disable-optimization --write-ghc-environment-files=always -j2
+        cabal build --only-dependencies
+
+    - name: Build & Test
+      run: |
+       cabal build -f pedantic
+       cabal test -f pedantic
