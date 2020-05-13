@@ -1,12 +1,11 @@
 module Spec (main) where
 
+import Data.Massiv.Array as A
+import Graph.AdjacencyArray
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.Ingredients.Rerun
 import Test.Tasty.QuickCheck as QC
-import Data.Massiv.Array as A
-
-import Graph.AdjacencyArray
 
 main :: IO ()
 main = defaultMainWithRerun tests
