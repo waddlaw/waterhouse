@@ -1,0 +1,4 @@
+resolver: lts-15.12
+extra-deps:
+  - massiv-0.5.2.0
+  - tasty-1.3

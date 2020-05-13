@@ -3,3 +3,5 @@ dist-*
 images/
 .DS_Store
 Makefile
+.stack-work/
+stack.yaml.lock

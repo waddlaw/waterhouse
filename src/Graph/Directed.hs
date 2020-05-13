@@ -1,4 +1,4 @@
-module Graph.Directed (DiGraph, isDiGraph) where
+module Graph.Directed (DiGraph, isDiGraph, digraph) where
 
 import Data.Set (Set)
 import qualified Data.Set as Set

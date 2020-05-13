@@ -7,7 +7,7 @@ license:            MIT
 tested-with:        GHC ==8.6.5 || ==8.8.3 || ==8.10.1
 extra-source-files:
   README.md
-  ChangeLog.md
+
 
 flag pedantic
   description: Enable -Werror
@@ -57,5 +57,5 @@ test-suite test
     , tasty-quickcheck  ^>=0.10
     , tasty-rerun       ^>=1.1
 
-  -- cabal-fmt: expand test
-  other-modules:  Spec
+  -- cabal-fmt: expand test -Spec
+  -- other-modules:

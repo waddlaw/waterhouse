@@ -47,18 +47,14 @@ isGraph :: Graph -> Bool
 isGraph (vs, es) = check1 && check2
   where
     -- Check that there is no side to yourself.
-    check1 = Set.foldr (\x acc -> Set.size x == 2 && acc) True $ es
+    check1 = Set.foldr (\x acc -> Set.size x == 2 && acc) True es
     -- Checks whether all the origins of a given set of edges are contained in the cartesian set of vertices.
     vs' = Set.cartesianProduct vs vs
     check2 =
       Set.foldr
         ( \x acc ->
             let [a, b] = Set.toList x
-             in and
-                  [ (a, b) `Set.member` vs',
-                    (b, a) `Set.member` vs',
-                    acc
-                  ]
+             in ((a, b) `Set.member` vs') && ((b, a) `Set.member` vs') && acc
         )
         True
         es
